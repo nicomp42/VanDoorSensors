@@ -50,19 +50,20 @@ namespace VanDoorSensorNamespace
                     Thread.Sleep(250 * random.Next(1, 5));
                     // Get a random door
                     int randomDoor = random.Next(0, vanDoors.Count - 1);
-                    // Set the door to a random state
+                    VanDoor.DoorStatus randomDoorStatus;
                     Array values = Enum.GetValues(typeof(VanDoor.DoorStatus));
-                    while (true) {  // Get a valid random door status for the random door.
-                        VanDoor.DoorStatus randomDoorStatus = (VanDoor.DoorStatus)values.GetValue(random.Next(values.Length));
+                    while (true) {  // Get a valid random door status for a random door.
+                        randomDoorStatus = (VanDoor.DoorStatus)values.GetValue(random.Next(values.Length));
                         if ((vanDoors[randomDoor].doorStatus == VanDoor.DoorStatus.Closing ||
-                             vanDoors[randomDoor].doorStatus == VanDoor.DoorStatus.Opening) &&
-                            (vanDoors[randomDoor].doorType == VanDoor.DoorType.DriverSideSlider ||
-                             vanDoors[randomDoor].doorType == VanDoor.DoorType.PassengerSideSlider)) {
+                             vanDoors[randomDoor].doorStatus == VanDoor.DoorStatus.Opening)) {
+                            if (vanDoors[randomDoor].doorType == VanDoor.DoorType.DriverSideSlider ||
+                                vanDoors[randomDoor].doorType == VanDoor.DoorType.PassengerSideSlider) {
 
-                            vanDoors[randomDoor].doorStatus = randomDoorStatus;
-                            break;
-                        }
+                                break;
+                            }
+                        } else { break; }
                     }
+                    vanDoors[randomDoor].doorStatus = randomDoorStatus;
                     CallMe(vanDoors);
                     TimeSpan elapsed;
                     elapsed = DateTime.Now - start;
@@ -71,9 +72,19 @@ namespace VanDoorSensorNamespace
             } else {
                 // The Demo Mode. 
                 timeSpan = new TimeSpan(0, 0, 30);    // Default to 30 seconds
+                VanDoor.DoorStatus myDoorStatus = VanDoor.DoorStatus.Open;
                 while (true) {
                     Thread.Sleep(1000);             // Default to 1 second pause
-                    CallMe(vanDoors);                      // Default to one vehicle entering the sensor
+                    for (int i = 0; i < vanDoors.Count; i++) {
+                        vanDoors[i].doorStatus = myDoorStatus;
+                        // Toggle the status netween open and closed
+                        if (myDoorStatus == VanDoor.DoorStatus.Open) {
+                            myDoorStatus = VanDoor.DoorStatus.Closed;
+                        } else {
+                            myDoorStatus = VanDoor.DoorStatus.Open;
+                        }
+                    }
+                    CallMe(vanDoors);               // Default to something
                     TimeSpan elapsed;
                     elapsed = DateTime.Now - start;
                     //                  Console.WriteLine(elapsed);
