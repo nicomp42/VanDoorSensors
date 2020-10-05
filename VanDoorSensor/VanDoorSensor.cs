@@ -49,7 +49,20 @@ namespace VanDoorSensorNamespace
                 while (true) {
                     Thread.Sleep(250 * random.Next(1, 5));
                     // Get a random door
+                    int randomDoor = random.Next(0, vanDoors.Count - 1);
+                    // Set the door to a random state
+                    Array values = Enum.GetValues(typeof(VanDoor.DoorStatus));
+                    while (true) {  // Get a valid random door status for the random door.
+                        VanDoor.DoorStatus randomDoorStatus = (VanDoor.DoorStatus)values.GetValue(random.Next(values.Length));
+                        if ((vanDoors[randomDoor].doorStatus == VanDoor.DoorStatus.Closing ||
+                             vanDoors[randomDoor].doorStatus == VanDoor.DoorStatus.Opening) &&
+                            (vanDoors[randomDoor].doorType == VanDoor.DoorType.DriverSideSlider ||
+                             vanDoors[randomDoor].doorType == VanDoor.DoorType.PassengerSideSlider)) {
 
+                            vanDoors[randomDoor].doorStatus = randomDoorStatus;
+                            break;
+                        }
+                    }
                     CallMe(vanDoors);
                     TimeSpan elapsed;
                     elapsed = DateTime.Now - start;

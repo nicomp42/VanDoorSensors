@@ -15,11 +15,19 @@ namespace VanDoorNamespace {
     public class VanDoor {
         public enum DoorType {DriverSide, PassengerSide, DriverSideSlider, PassengerSideSlider, RearHatch};
         public enum DoorStatus {Unknown, Closed, Open, Opening, Closing};
-        private DoorType doorType;
-        private DoorStatus doorStatus;
+        private DoorType mDoorType;
+        private DoorStatus mDoorStatus;
         public VanDoor(DoorType doorType, DoorStatus doorStatus) {
-            this.doorType = doorType;
-            this.doorStatus = doorStatus;
+            this.mDoorType = doorType;
+            this.mDoorStatus = doorStatus;
+        }
+        public DoorType doorType {
+            get { return mDoorType; }
+            set { value = mDoorType; }
+        }
+        public DoorStatus doorStatus {
+            get { return mDoorStatus; }
+            set { mDoorStatus = value; }
         }
         /// <summary>
         /// Build a list of the 5 van doors and initialize the status of each to unknown.
