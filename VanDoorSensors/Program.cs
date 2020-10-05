@@ -13,8 +13,8 @@ namespace VanDoorSensorDemoNamespace {
         static void Main(string[] args) {
             
             VanDoorSensor vanDoorSensor = new VanDoorSensor();
-            Thread vanDoorSensorThread = vanDoorSensor.StartSensor("My Toyota", ProcessSensorOutput, 0);
-            // Do whatever you want here. 
+            Thread vanDoorSensorThread = vanDoorSensor.StartSensor("My Toyota", ProcessSensorOutput, 0);    // Demo mode
+            // Do whatever you want here. Your sensor will call you when something happens. 
             // ...
             for (int i = 0; i < 10; i++) { Console.Write("Working "); Thread.Sleep(1000); }
 

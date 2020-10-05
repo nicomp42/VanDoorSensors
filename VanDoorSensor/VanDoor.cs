@@ -3,20 +3,32 @@
  * nicholdw@ucmail.uc.edu
  * Door Sensor Array for my Toyota Van
  * 5 doors. Each door is open/closed
- * The side doors and the read door can also be opening or closing
  */
- using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VanDoorNamespace {
+    /// <summary>
+    /// Model the state and type of door.
+    /// All doors can be 'open' or 'closed'
+    /// The side doors and the rear door can also be 'opening' or 'closing'
+    /// </summary>
     public class VanDoor {
+        /// <summary>
+        /// All the different doors in the van
+        /// </summary>
         public enum DoorType {DriverSide, PassengerSide, DriverSideSlider, PassengerSideSlider, RearHatch};
+        /// <summary>
+        /// All the possible status codes for the doors. Not all codes are valid for all door types!
+        /// </summary>
         public enum DoorStatus {Unknown, Closed, Open, Opening, Closing};
         private DoorType mDoorType;
         private DoorStatus mDoorStatus;
+        /// <summary>
+        /// Constructor. 
+        /// </summary>
+        /// <param name="doorType">Driver Side, Passenger Side, etc. </param>
+        /// <param name="doorStatus">Open, Closed, etc.</param>
         public VanDoor(DoorType doorType, DoorStatus doorStatus) {
             this.mDoorType = doorType;
             this.mDoorStatus = doorStatus;
