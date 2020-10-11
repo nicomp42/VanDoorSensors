@@ -33,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,8 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sound\Sound.csproj">
+      <Project>{c4a6817e-a9fc-4359-9c33-4fb1dabf5253}</Project>
+      <Name>Sound</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VanDoorSensor\VanDoorSensor.csproj">
       <Project>{a7a7dceb-af9d-458b-a1b9-544b55710230}</Project>
       <Name>VanDoorSensor</Name>

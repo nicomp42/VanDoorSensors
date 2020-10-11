@@ -3,6 +3,10 @@
  * nicholdw@ucmail.uc.edu
  * Door Sensor Array for my Toyota Van
  * 5 doors. Each door is open/closed
+ * 
+ * Refer to https://docs.microsoft.com/en-us/dotnet/standard/collections/thread-safe/ for thread-safe data structures
+ * Refer to https://stackoverflow.com/questions/7511199/system-servicemodel-dll-missing-in-references-visual-studio-2010 for the .dll
+ *   for  System.Collections.Generic.SynchronizedCollection<VanDoor<>
  */
 using System;
 using System.Collections.Generic;
@@ -45,8 +49,9 @@ namespace VanDoorNamespace {
         /// Build a list of the 5 van doors and initialize the status of each to unknown.
         /// </summary>
         /// <returns>The list of doors</returns>
-        public static List<VanDoor> buildDoorList() {
-            List<VanDoor> vanDoors = new List<VanDoor>();
+        public static System.Collections.Generic.SynchronizedCollection<VanDoor> buildDoorList() {
+//          List<VanDoor> vanDoors = new List<VanDoor>();
+            SynchronizedCollection<VanDoor> vanDoors = new SynchronizedCollection<VanDoor>();
             vanDoors.Add(new VanDoor(DoorType.DriverSide, DoorStatus.Unknown));
             vanDoors.Add(new VanDoor(DoorType.PassengerSide, DoorStatus.Unknown));
             vanDoors.Add(new VanDoor(DoorType.DriverSideSlider, DoorStatus.Unknown));
